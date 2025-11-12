@@ -7,6 +7,7 @@ interface ThemeProps {
 const Title: FC<ThemeProps> = ({ theme }) => {
   return (
     <p
+      data-testid="titleId"
       className={`uppercase ${theme === "light" ? "text-black" : "text-white"}`}
     >
       todo list

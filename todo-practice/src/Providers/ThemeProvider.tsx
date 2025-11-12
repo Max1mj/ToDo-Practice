@@ -1,7 +1,7 @@
 import { useState, type FC } from "react";
 import { ThemeContext } from "../Contexts/ThemeContext";
 
-type ThemeProviderType = {
+export type ThemeProviderType = {
   children: React.ReactNode;
 };
 

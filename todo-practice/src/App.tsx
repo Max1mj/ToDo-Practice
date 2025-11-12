@@ -1,20 +1,12 @@
 import Menu from "./Components/Menu";
 
-import ModalProvider from "./Providers/ModalProvider";
-
-import NotesProvider from "./Providers/NotesProvider";
-
-import ThemeProvider from "./Providers/ThemeProvider";
+import WrapperProvider from "./utils/WrapperProvider";
 
 const App = () => {
   return (
-    <ThemeProvider>
-      <NotesProvider>
-        <ModalProvider>
-          <Menu />
-        </ModalProvider>
-      </NotesProvider>
-    </ThemeProvider>
+    <WrapperProvider>
+      <Menu />
+    </WrapperProvider>
   );
 };
 

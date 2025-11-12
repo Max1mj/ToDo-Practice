@@ -28,11 +28,12 @@ const NoteItem: FC<NoteItemProps> = ({ noteText, id, onRemove, status }) => {
     setItemStatus(itemStatus === "Complete" ? "Incomplete" : "Complete");
   };
 
-  let editNoteName = <span>{noteLabel}</span>;
+  let editNoteName = <span data-testid="itemText">{noteLabel}</span>;
 
   if (isEditing) {
     editNoteName = (
       <input
+        data-testid="editId"
         type="text"
         className={`border animate-pulse px-1  ${
           theme === "light" ? "text-indigo-600 " : "text-white"
@@ -45,6 +46,7 @@ const NoteItem: FC<NoteItemProps> = ({ noteText, id, onRemove, status }) => {
 
   return (
     <div
+      data-testid="noteItemId"
       className="h-7 w-lg flex flex-row justify-between items-center"
       key={id}
     >
@@ -74,6 +76,7 @@ const NoteItem: FC<NoteItemProps> = ({ noteText, id, onRemove, status }) => {
 
       <div className="flex flex-row gap-2.5 ">
         <button
+          data-testid="change"
           className={`cursor-pointer text-gray-500 ${
             theme === "light" ? "hover:text-indigo-400" : "hover:text-white"
           } `}
@@ -83,6 +86,7 @@ const NoteItem: FC<NoteItemProps> = ({ noteText, id, onRemove, status }) => {
         </button>
 
         <button
+          data-testid="delete"
           className="cursor-pointer text-gray-500 hover:text-red-500"
           onClick={() => onRemove(id)}
         >

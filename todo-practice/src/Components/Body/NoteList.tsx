@@ -9,7 +9,10 @@ type NoteListType = {
 
 const NoteList = ({ list, onRemove }: NoteListType) => {
   return (
-    <div className="w-full full flex flex-col gap-3 items-center overflow-y-auto py-5">
+    <div
+      data-testid="listId"
+      className="w-full full flex flex-col gap-3 items-center overflow-y-auto py-5"
+    >
       {list.map((note) => (
         <NoteItem
           noteText={note.noteText}
