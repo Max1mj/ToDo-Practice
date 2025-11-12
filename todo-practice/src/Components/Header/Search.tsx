@@ -22,6 +22,7 @@ const Search: FC<SearchProps> = ({ theme }) => {
       }`}
     >
       <input
+        data-testid="searchInput"
         type="text"
         placeholder="Search note..."
         className="h-full w-full focus:outline-none"

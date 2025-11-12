@@ -22,6 +22,7 @@ const Selector: FC<SelectorProps> = ({ theme }) => {
   return (
     <div className="relative">
       <button
+        data-testid="selector"
         onClick={onCategorySelect}
         className={`w-29 h-10 p-2.5 rounded  text-white flex flex-row justify-between items-center cursor-pointer shadow-sm   ${
           theme === "light"
@@ -39,6 +40,7 @@ const Selector: FC<SelectorProps> = ({ theme }) => {
 
       {isOpen && (
         <div
+          data-testid="selector-menu"
           className={`absolute flex flex-col items-start w-29 gap-1 h-21 py-2 border rounded text-sm  z-10 ${
             theme === "light"
               ? "bg-gray-50 border-indigo-600 text-indigo-600 "
