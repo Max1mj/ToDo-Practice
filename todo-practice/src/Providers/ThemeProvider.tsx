@@ -4,8 +4,7 @@ import { ThemeContext } from "../Contexts/ThemeContext";
 export type ThemeProviderType = {
   children: React.ReactNode;
 };
-
-type ThemeType = "light" | "dark";
+export type ThemeType = "light" | "dark";
 
 const ThemeProvider: FC<ThemeProviderType> = ({ children }) => {
   const [theme, setTheme] = useState<ThemeType | string>("light");

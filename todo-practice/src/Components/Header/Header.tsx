@@ -6,7 +6,7 @@ import ThemeSwitch from "./ThemeSwitch";
 import { ThemeContext } from "../../Contexts/ThemeContext";
 
 const Header = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
 
   return (
     <div className="w-[764px] flex flex-col gap-3 items-center">
@@ -14,7 +14,7 @@ const Header = () => {
       <div className="flex flex-row gap-4">
         <Search theme={theme} />
         <Selector theme={theme} />
-        <ThemeSwitch theme={theme} toggleTheme={toggleTheme} />
+        <ThemeSwitch />
       </div>
     </div>
   );

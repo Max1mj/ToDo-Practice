@@ -17,5 +17,25 @@ export const listReducer = (todos: NoteItemType[], action: NoteActionType) => {
     case "deleted_task": {
       return todos.filter((item) => item.id !== action.payload.id);
     }
+
+    case "updated_status": {
+      return todos.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, status: action.payload.status };
+        } else {
+          return { ...item };
+        }
+      });
+    }
+
+    case "updated_text": {
+      return todos.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, noteText: action.payload.noteText };
+        } else {
+          return { ...item };
+        }
+      });
+    }
   }
 };

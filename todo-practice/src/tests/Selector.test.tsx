@@ -3,10 +3,15 @@ import { describe, expect, it } from "vitest";
 import { page, userEvent } from "vitest/browser";
 
 import Selector from "../Components/Header/Selector";
+import ThemeProvider from "../Providers/ThemeProvider";
 
 describe("Selector", () => {
   it.each(["light", "dark"])("renders Selector with %s theme", (theme) => {
-    customRender(<Selector theme={theme} />);
+    customRender(
+      <ThemeProvider>
+        <Selector theme={theme} />
+      </ThemeProvider>
+    );
   });
 
   it.each(["light", "dark"])("reacts on user interaction", async (theme) => {
