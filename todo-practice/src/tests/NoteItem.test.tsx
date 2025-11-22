@@ -1,21 +1,18 @@
 import { describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-react";
-import NoteItem, { type NoteItemProps } from "../Components/Body/NoteItem";
+import NoteItem from "../Components/Body/NoteItem";
 import { page, userEvent } from "vitest/browser";
+import type { NoteItemType } from "../utils/Notes";
+import { NotesContext } from "../Contexts/NotesContext";
+
+import { ThemeContext } from "../Contexts/ThemeContext";
 
 describe("NoteItem", () => {
-  const mockProps: NoteItemProps = {
+  const mockProps: NoteItemType = {
     noteText: "Hello World!",
     id: 1,
     status: "Incomplete",
-    onRemove: vi.fn(() => {}),
   };
-
-  // function noteItemRenderer(props: NoteItemProps) {
-  //   const component = render(<NoteItem {...props} />);
-  //   const noteItem = page.getByTestId("noteItemId");
-  //   return { ...component, noteItem };
-  // }
 
   it("renders component", () => {
     render(<NoteItem {...mockProps} />);
@@ -67,4 +64,57 @@ describe("NoteItem", () => {
     await userEvent.click(changeButton);
     await expect.element(itemText).toHaveTextContent(mockText);
   });
+
+  it("handles item delete", async () => {
+    const onDelete = vi.fn();
+    render(
+      <NotesContext value={{ dispatch: onDelete }}>
+        <NoteItem {...mockProps} />
+      </NotesContext>
+    );
+    const deleteButton = page.getByTestId("delete");
+
+    await userEvent.click(deleteButton);
+    expect(onDelete).toHaveBeenCalled();
+  });
+
+  it.each(["light", "dark"])("renders Noteitem with %s thame", (theme) => {
+    const mockTheme = {
+      theme: theme,
+      toggleTheme: vi.fn(),
+    };
+    render(
+      <ThemeContext value={mockTheme}>
+        <NoteItem {...mockProps} />
+      </ThemeContext>
+    );
+  });
+
+  it.each(["light", "dark"])(
+    "keeps input element if typed nothing",
+    async (theme) => {
+      const mockTheme = {
+        theme: theme,
+        toggleTheme: vi.fn(),
+      };
+      render(
+        <ThemeContext value={mockTheme}>
+          <NoteItem {...mockProps} />
+        </ThemeContext>
+      );
+
+      const changeButton = page.getByTestId("change");
+      const inputElement = page.getByTestId("editId");
+
+      await userEvent.click(changeButton);
+
+      await expect.element(inputElement).toBeVisible();
+
+      await userEvent.clear(inputElement);
+      await expect.element(inputElement).toHaveValue("");
+
+      await userEvent.click(changeButton);
+      await expect.element(inputElement).toBeVisible();
+    }
+  );
 });

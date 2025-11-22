@@ -1,16 +1,13 @@
-import React, { useState, type FC } from "react";
+import React, { useContext, useState } from "react";
 import { LuMoon } from "react-icons/lu";
 import { GoSun } from "react-icons/go";
+import { ThemeContext } from "../../Contexts/ThemeContext";
 
 export type ThemeType = "light" | "dark";
 
-interface ThemeSwiitchProps {
-  theme: string;
-  toggleTheme: () => void;
-}
-
-const ThemeSwitch: FC<ThemeSwiitchProps> = ({ theme, toggleTheme }) => {
+const ThemeSwitch = () => {
   const [isToggled, setIsToggled] = useState(false);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const onToggleChange = () => {
     setIsToggled((prev) => !prev);
@@ -26,7 +23,11 @@ const ThemeSwitch: FC<ThemeSwiitchProps> = ({ theme, toggleTheme }) => {
           : "bg-black shadow-white"
       } `}
     >
-      {isToggled ? <GoSun className="size-6" /> : <LuMoon className="size-6" />}
+      {isToggled ? (
+        <GoSun className="size-6" data-testid="sun" />
+      ) : (
+        <LuMoon className="size-6" data-testid="moon" />
+      )}
     </button>
   );
 };

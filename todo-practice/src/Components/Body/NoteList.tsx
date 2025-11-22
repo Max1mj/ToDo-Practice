@@ -1,27 +1,38 @@
-import React from "react";
-import type { NoteItemType } from "../../utils/Notes";
+import { useContext } from "react";
+
 import NoteItem from "./NoteItem";
+import { CategoryContext } from "../../Contexts/CategoryContext";
 
-type NoteListType = {
-  list: NoteItemType[];
-  onRemove: (id: number) => void;
-};
+import FallbackList from "./FallbackList";
+import { SearchContext } from "../../Contexts/SearchContext";
 
-const NoteList = ({ list, onRemove }: NoteListType) => {
+const NoteList = () => {
+  const { category } = useContext(CategoryContext);
+
+  const { searchedNote } = useContext(SearchContext);
+
+  const filteredNotes =
+    category === "All"
+      ? searchedNote
+      : searchedNote.filter((item) => item.status === category);
+
   return (
     <div
       data-testid="listId"
       className="w-full full flex flex-col gap-3 items-center overflow-y-auto py-5"
     >
-      {list.map((note) => (
-        <NoteItem
-          noteText={note.noteText}
-          key={note.id}
-          id={note.id}
-          status={note.status}
-          onRemove={onRemove}
-        />
-      ))}
+      {filteredNotes.length === 0 ? (
+        <FallbackList />
+      ) : (
+        filteredNotes.map((note) => (
+          <NoteItem
+            id={note.id}
+            noteText={note.noteText}
+            status={note.status}
+            key={note.id}
+          />
+        ))
+      )}
     </div>
   );
 };

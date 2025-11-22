@@ -9,6 +9,7 @@ export default mergeConfig(
       coverage: {
         include: ["src/**/*.{ts,tsx}"],
         provider: "istanbul",
+        exclude: ["./src/App.tsx", "./src/main.tsx"],
       },
       browser: {
         provider: playwright(),
